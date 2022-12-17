@@ -4,7 +4,7 @@ namespace Todo.Models;
 
 class User
 {
-    [Required()]
+    [Key]
     public int UserID { get; set; }
     protected LoginInfo LoginInfo { get; set; }
     public string FirstName { get; set; }
