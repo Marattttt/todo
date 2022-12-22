@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Todo.Models;
 
-class TodoItem
+public class TodoItem
 {
     [Key]
     public int TodoItemId { get; set; }

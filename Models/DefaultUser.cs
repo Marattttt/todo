@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Todo.Models;
 
-class DefaultUser : User
+public class Client : User
 {
     public List<TodoItem>? TodoItems { get; set; }
     public Profile Profile { get; set; }

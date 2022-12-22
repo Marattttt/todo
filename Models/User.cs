@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Todo.Models;
 
-class User
+public class User
 {
     [Key]
     public int UserID { get; set; }

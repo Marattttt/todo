@@ -1,6 +1,5 @@
 namespace Todo.Models;
-
-class Profile
+public class Profile
 {
     public String? Desctription { get; set; }
 }

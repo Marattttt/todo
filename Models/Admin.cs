@@ -1,7 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Todo.Models;
-class Admin : User
+
+public class Admin : User
 {
     private String? _safeWord { get; }
     
