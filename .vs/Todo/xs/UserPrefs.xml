@@ -1,23 +1,34 @@
 ﻿<Properties StartupConfiguration="{74D6A0E9-A960-4244-B8C3-534D969BC499}|Todo2">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Services/TodoService.cs">
+    <Files>
+      <File FileName="Models/User.cs" Line="14" Column="6" />
+      <File FileName="Models/DefaultUser.cs" Line="18" Column="5" />
+      <File FileName="Models/LoginInfo.cs" Line="12" Column="43" />
+      <File FileName="Data/TodoContext.cs" Line="20" Column="54" />
+      <File FileName="Services/TodoService.cs" Line="11" Column="31" />
+      <File FileName="Models/Admin.cs" Line="10" Column="2" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Todo" expanded="True">
-            <Node name="Todo" expanded="True" />
+            <Node name="Todo" expanded="True">
+              <Node name="Data" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Admin.cs" selected="True" />
+              </Node>
+              <Node name="Services" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Todo PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.Todo PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>

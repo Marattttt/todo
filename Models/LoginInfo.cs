@@ -4,14 +4,14 @@ namespace Todo.Models;
 
 public class LoginInfo
 {
-    [Required()]
-    private string _login { get; set; }
-    [Required()]
-    private string _password { get; set; }
+    [Key()]
+    public int Id { get; set; }
+    private string Login { get; set; }
+    private string Password { get; set; }
 
     public bool VerifyLogin (string login, string password)
     {
-        if (login == _login && password == _password)
+        if (login == Login && password == Password)
             return true;
         else 
             return false;
@@ -19,7 +19,7 @@ public class LoginInfo
     
     public void UpdateLoginInfo (string newLogin, string newPassword)
     {
-        _login = newLogin;
-        _password = newPassword;
+        Login = newLogin;
+        Password = newPassword;
     }
 }

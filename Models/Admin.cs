@@ -2,13 +2,9 @@ namespace Todo.Models;
 
 public class Admin : User
 {
-    private String? _safeWord { get; }
-    
-    public bool Authenticate (string safeWord)
+    public List<User>? WatchList;
+
+    public Admin(string firstName, string lastName) : base(firstName, lastName)
     {
-        if (_safeWord is null)
-            return true;
-        
-        return safeWord == _safeWord;
     }
 }
