@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Todo.Services;
 
-public class TodoService
+public class GeneralService
 {
     private readonly TodoContext _context;
 
-    TodoService(TodoContext context)
+    GeneralService(TodoContext context)
     {
         _context = context;
     }
