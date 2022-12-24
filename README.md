@@ -1,6 +1,5 @@
 # todo
-The project is a web application, which allows clients to log in and have their to-do list\n
-It also allows admins to view and manage users and their data
+The project is a web application, which allows clients to log in and have their to-do list. It also allows admins to view and manage users and their data
 
 ### *This is currently a work in progress*
 
