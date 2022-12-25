@@ -1,33 +1,33 @@
 ﻿using System;
+using System.Text.Json;
 using Todo.Models;
 
-namespace Todo.Services
+namespace Todo.Services;
+
+public class AdminService : IUserService
 {
-	public class AdminService : IUserService<List<Client>>
+	public AdminService()
 	{
-		public AdminService()
+	}
+	
+    public string GetDispayData(User user)
+	{
+		Admin admin;
+        try
 		{
+			admin = (Admin)user;
+		}
+		catch(InvalidCastException e)
+		{
+			Console.WriteLine(e.Message);
+			return String.Empty;
 		}
 
-        public List<Client> GetDispayData(User user)
-		{
-			Admin admin;
-            try
-			{
-				admin = (Admin)user;
-			}
-			catch(InvalidCastException e)
-			{
-				Console.WriteLine(e.Message);
-				return new List<Client>();
-			}
+		if (admin.WatchList is null)
+			return String.Empty;
 
-			if (admin.WatchList is null)
-				return new List<Client>();
-
-			return admin.WatchList;
-		}
-
-    }
+        return JsonSerializer.Serialize(admin.WatchList);
+	}
 }
+
 

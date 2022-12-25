@@ -4,9 +4,9 @@ using Todo.Models;
 
 namespace Todo.Services
 {
-	public interface IUserService<T>
+	public interface IUserService
 	{
-		public T GetDispayData (User user);
+		public string GetDispayData (User user); 
 	}
 }
 
