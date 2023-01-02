@@ -8,16 +8,21 @@ public class GeneralService
 {
     private readonly TodoContext _context;
 
-    GeneralService(TodoContext context)
+    public GeneralService(TodoContext context)
     {
         _context = context;
     }
 
-    public void CreateUser(string firstName, string lastName, LoginInfo loginInfo)
+    public async Task<int> CreateUser(User user)
+    {
+        _context.Users.Add(user);
+        return await _context.SaveChangesAsync();
+    }
+    public async Task<int> CreateUser(string firstName, string lastName, LoginInfo loginInfo)
     {
         User newUser = new User(firstName, lastName);
         newUser.LoginInfo = loginInfo;
         _context.Users.Add(newUser);
-        _context.SaveChanges();
+        return await _context.SaveChangesAsync();
     }
 }

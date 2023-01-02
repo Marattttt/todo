@@ -1,22 +1,32 @@
 ﻿<Properties StartupConfiguration="{74D6A0E9-A960-4244-B8C3-534D969BC499}|Todo2">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Services/TodoService.cs">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/Api/UsersController.cs">
     <Files>
-      <File FileName="Models/User.cs" Line="14" Column="6" />
-      <File FileName="Models/DefaultUser.cs" Line="18" Column="5" />
-      <File FileName="Models/LoginInfo.cs" Line="12" Column="43" />
-      <File FileName="Data/TodoContext.cs" Line="20" Column="54" />
-      <File FileName="Services/TodoService.cs" Line="11" Column="31" />
-      <File FileName="Models/Admin.cs" Line="10" Column="2" />
+      <File FileName="Services/TodoService.cs" Line="11" Column="36" />
+      <File FileName="Services/AdminService.cs" Line="8" Column="2" />
+      <File FileName="Services/IUserService.cs" Line="10" Column="3" />
+      <File FileName="Controllers/Api/UsersController.cs" Line="49" Column="43" />
+      <File FileName="Models/LoginInfo.cs" Line="23" Column="32" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Todo" expanded="True">
             <Node name="Todo" expanded="True">
-              <Node name="Data" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Admin.cs" selected="True" />
+              <Node name="Dependencies" expanded="True">
+                <Node name="FrameworkReferences" expanded="True" />
+                <Node name="PackageDependencies" expanded="True" />
               </Node>
+              <Node name="Controllers" expanded="True">
+                <Node name="Api" expanded="True" />
+              </Node>
+              <Node name="Data" expanded="True" />
+              <Node name="Models" expanded="True" />
               <Node name="Services" expanded="True" />
             </Node>
           </Node>
@@ -24,11 +34,5 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.Todo PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>

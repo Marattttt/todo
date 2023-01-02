@@ -9,4 +9,3 @@ namespace Todo.Services
 		public string GetDispayData (User user); 
 	}
 }
-

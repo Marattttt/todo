@@ -6,8 +6,8 @@ public class LoginInfo
 {
     [Key()]
     public int Id { get; set; }
-    private string Login { get; set; }
-    private string Password { get; set; }
+    private string Login { get; set; } = "";
+    private string Password { get; set; } = "";
 
     public bool VerifyLogin (string login, string password)
     {
@@ -21,5 +21,6 @@ public class LoginInfo
     {
         Login = newLogin;
         Password = newPassword;
+        Console.WriteLine("\n\nUpdateLoginInfo - success\n\n");
     }
 }

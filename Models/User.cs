@@ -14,5 +14,6 @@ public class User
     {
         FirstName = firstName;
         LastName = lastName;
+        LoginInfo = new LoginInfo();
     }
 }

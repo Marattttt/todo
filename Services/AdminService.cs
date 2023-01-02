@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Text.Json;
+using Todo.Data;
 using Todo.Models;
 
 namespace Todo.Services;
 
 public class AdminService : IUserService
 {
-	public AdminService()
-	{
-	}
-	
+    TodoContext context;
+    public AdminService(TodoContext context)
+    {
+        this.context = context;
+    }
+
+
     public string GetDispayData(User user)
 	{
 		Admin admin;

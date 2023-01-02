@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Text.Json;
 using Todo.Models;
+using Todo.Data;
 
 namespace Todo.Services;
 
 public class ClientService : IUserService
 {
-	public ClientService()
+    TodoContext context;
+	public ClientService(TodoContext context)
 	{
+        this.context = context;
 	}
 
     public string GetDispayData(User user)

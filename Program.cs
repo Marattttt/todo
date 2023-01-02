@@ -1,5 +1,5 @@
 using Todo.Data;
-//using Todo.Services;
+using Todo.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
@@ -15,7 +15,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<TodoContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("TodoContext")));
-//builder.Services.AddScoped<TodoService>();
+builder.Services.AddScoped<GeneralService>();
+builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<ClientService>();
 
 var app = builder.Build();
 
@@ -28,7 +30,10 @@ if (app.Environment.IsDevelopment())
 
 using (var scope = app.Services.CreateScope())
 {
+    
     var services = scope.ServiceProvider;
+
+   
 
     var context = services.GetRequiredService<TodoContext>();
     context.Database.EnsureCreated();
