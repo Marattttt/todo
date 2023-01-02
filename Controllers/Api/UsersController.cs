@@ -48,20 +48,8 @@ namespace Todo.Controllers.Api
             string login,
             string password)
         {
-            User user;
-            
-            Console.WriteLine(
-                first_name + "\n" + last_name + "\n" + login + "\n" + password);
-            
-            user = new User(first_name, last_name);
-            Console.WriteLine(
-    first_name + "\n" + last_name + "\n" + login + "\n" + password);
-
+            User user = new User(first_name, last_name);
             user.LoginInfo.UpdateLoginInfo(login, password);
-            Console.WriteLine(
-    first_name + "\n" + last_name + "\n" + login + "\n" + password);
-
-
             return Ok(await generalService.CreateUser(user));
         }
 

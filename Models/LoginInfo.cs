@@ -21,6 +21,5 @@ public class LoginInfo
     {
         Login = newLogin;
         Password = newPassword;
-        Console.WriteLine("\n\nUpdateLoginInfo - success\n\n");
     }
 }
