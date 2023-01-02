@@ -1,6 +1,7 @@
 using Todo.Data;
 using Todo.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Todo.Services;
 
@@ -12,6 +13,19 @@ public class GeneralService
     {
         _context = context;
     }
+
+    public User? GetUserById(int id)
+    {
+        var user = from u in _context.Users
+                    where u.Id == id
+                    select u;
+
+        if (user is null)
+            return null;
+
+        return user.First();
+    }
+
 
     public async Task<int> CreateUser(User user)
     {

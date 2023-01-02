@@ -30,11 +30,14 @@ namespace Todo.Controllers.Api
 
         // GET api/values/5
         [HttpGet("api/[controller]/get-user{id}")]
-        public User GetUserById(int id)
-        {
-            User user;
-            user = generalService.
-            return "value";
+        public ActionResult<User> GetUserById(int id)
+        {   
+            User? user = generalService.GetUserById(id);
+
+            if (user is null)
+                return BadRequest();
+
+            return user;
         }
 
         [Route("api/[controller]/create-user{first_name}/{last_name}/{login}/{password}")]
