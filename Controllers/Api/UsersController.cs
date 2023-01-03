@@ -6,78 +6,71 @@ using Todo.Models;
 using Todo.Data;
 using Todo.Services;
 
-namespace Todo.Controllers.Api
-{
-    [Route("api/[controller]/[action]")]
-    public class UsersController : ControllerBase
-    {      
-        GeneralService generalService;
+namespace Todo.Controllers.Api;
 
-        public UsersController(TodoContext context)
-        { 
-            generalService = new GeneralService(context);
-        }
+//This controller handles create and read methods related to users in general
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+[Route("api/[controller]/[action]")]
+public class UsersController : ControllerBase
+{      
+    GeneralService generalService;
+    public UsersController(TodoContext context)
+    { 
+        generalService = new GeneralService(context);
+    }
 
-        // GET api/values/5
-        [HttpGet("api/[controller]/get-user{id}")]
-        public ActionResult<User> GetUserById(int id)
-        {   
-            User? user = generalService.GetUserById(id);
+    [HttpGet]
+    public IEnumerable<string> Get()
+    {
+        return new string[] { "value1", "value2" };
+    }
 
-            if (user is null)
-                return BadRequest();
+    // GET api/values/5
+    [HttpGet("api/[controller]/get-user{id}")]
+    public ActionResult<User> GetUserById(int id)
+    {   
+        User? user = generalService.GetUserById(id);
 
-            return user;
-        }
+        if (user is null)
+            return BadRequest();
 
-        [Route("api/[controller]/create-user{first_name}/{last_name}/{is_admin}/{login}/{password}")]
-        [HttpPost]
-        public async Task<IActionResult> CreateUserFromURL(
-            string first_name,
-            string last_name,
-            bool is_admin,
-            string login,
-            string password)
-        {
-            User user;
-            if (is_admin) 
-                user = new Admin(first_name, last_name);
-            else
-                user = new Client(first_name, last_name);
+        return user;
+    }
 
-            user.LoginInfo.UpdateLoginInfo(login, password);
-            return Ok(await generalService.CreateUser(user));
-        }
+    //Method created for a better realization in future
+    [Route("api/[controller]/create-user{first_name}/{last_name}/{is_admin}/{login}/{password}")]
+    [HttpPost]
+    public async Task<IActionResult> CreateUserFromURL(
+        string first_name,
+        string last_name,
+        bool is_admin,
+        string login,
+        string password)
+    {
+        User user;
+        if (is_admin) 
+            user = new Admin(first_name, last_name);
+        else
+            user = new Client(first_name, last_name);
 
-        [Route("api/[controller]/create-user")]
-        [HttpPost]
-        public async Task<IActionResult> CreateUserFromBody([FromBody] string userJSON)
-        {
-            User? user = JsonSerializer.Deserialize<User>(userJSON);
-            if (user is null)
-                return BadRequest();
+        user.LoginInfo.UpdateLoginInfo(login, password);
+        return Ok(await generalService.CreateUser(user));
+    }
 
-            return Ok(await generalService.CreateUser(user));
-        }
+    [Route("api/[controller]/create-user")]
+    [HttpPost]
+    public async Task<IActionResult> CreateUserFromBody([FromBody] string userJSON)
+    {
+        User? user = JsonSerializer.Deserialize<User>(userJSON);
+        if (user is null)
+            return BadRequest();
 
-        // PUT api/values/5
-        [HttpGet("api/[controller]/check-user{id}")]
-        public void Put(int id)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("api/[controller]/delete-user{id}")]
-        public void DeleteUser(int id)
-        {
-            generalService.DeleteUser(id);
-        }
+        return Ok(await generalService.CreateUser(user));
+    }
+    
+    [HttpDelete("api/[controller]/delete-user{id}")]
+    public void DeleteUser(int id)
+    {
+        generalService.DeleteUser(id);
     }
 }
-

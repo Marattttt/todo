@@ -2,10 +2,8 @@
 using System;
 using Todo.Models;
 
-namespace Todo.Services
+namespace Todo.Services;
+public interface IUserService
 {
-	public interface IUserService
-	{
-		public string GetDispayData (User user); 
-	}
+	public string GetDispayData (User user); 
 }

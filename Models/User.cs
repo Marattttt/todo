@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Todo.Models;
 
+//User class should be used for managing overall user entities
 public class User
 {
     [Key()]

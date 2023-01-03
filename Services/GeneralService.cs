@@ -3,6 +3,7 @@ using Todo.Models;
 
 namespace Todo.Services;
 
+//This service should be used for general actions regarding User class  
 public class GeneralService
 {
     private readonly TodoContext _context;
@@ -12,6 +13,7 @@ public class GeneralService
         _context = context;
     }
 
+    //method return a user if one is found, or otherwise, null
     public User? GetUserById(int id)
     {
         var user = from u in _context.Users
@@ -34,6 +36,7 @@ public class GeneralService
         await _context.SaveChangesAsync();
     }
 
+    //Method overload made for a better future implementation
     public async Task<int> CreateUser(User user)
     {
         _context.Users.Add(user);

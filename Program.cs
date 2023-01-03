@@ -3,10 +3,7 @@ using Todo.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
-
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -28,16 +25,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//Configuring database connection and context
 using (var scope = app.Services.CreateScope())
 {
-    
     var services = scope.ServiceProvider;
-
-   
-
     var context = services.GetRequiredService<TodoContext>();
     context.Database.EnsureCreated();
-    // DbInitializer.Initialize(context);
 }
 
 app.UseHttpsRedirection();

@@ -5,6 +5,7 @@ using Todo.Data;
 
 namespace Todo.Services;
 
+//This service is used for services used by clients
 public class ClientService : IUserService
 {
     TodoContext context;
@@ -12,7 +13,6 @@ public class ClientService : IUserService
 	{
         this.context = context;
 	}
-
     public string GetDispayData(User user)
     {
         Client client;

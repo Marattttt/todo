@@ -14,7 +14,6 @@ public class TodoContext : DbContext
     public DbSet<LoginInfo> LoginInfos { get; set; }
     public DbSet<Profile> Profiles { get; set; }
     public DbSet<TodoItem> TodoItems { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<LoginInfo>(
@@ -25,15 +24,7 @@ public class TodoContext : DbContext
                 li.ToTable("LoginInfo");
             });
 
-        modelBuilder.Entity<User>(
-            usr =>
-            {
-                usr.ToTable("Users");
-                //usr.HasOne(li => li.LoginInfo).WithOne()
-                //    .HasForeignKey<LoginInfo>(li => li.Id);
-                //usr.Navigation(li => li.LoginInfo).IsRequired();
-            });
-
+        modelBuilder.Entity<User>().ToTable("Users");
         modelBuilder.Entity<Profile>().ToTable("Profiles");
         modelBuilder.Entity<TodoItem>().ToTable("TodoItems");
     }

@@ -6,102 +6,104 @@ using Todo.Models;
 using Todo.Data;
 using Todo.Services;
 
-namespace Todo.Controllers.Api
+namespace Todo.Controllers.Api;
+
+//This controller handles special methods to be used by admins
+
+[Route("api/[controller]/[action]")]
+public class AdminController : ControllerBase
 {
-    [Route("api/[controller]/[action]")]
-    public class AdminController : ControllerBase
+    GeneralService generalService;
+    AdminService adminService;
+
+    public AdminController(TodoContext context)
+    { 
+        generalService = new GeneralService(context);
+        adminService = new AdminService(context);
+    }
+
+    [HttpGet("api/[controller]/watchlist{admin_id}")]
+    public ActionResult<List<User>> GetWatchlist(int admin_id)
     {
-        GeneralService generalService;
-        AdminService adminService;
+        User? user = generalService.GetUserById(admin_id);
+        
+        if (user is not Admin || user is null)
+            return BadRequest();
 
-        public AdminController(TodoContext context)
-        { 
-            generalService = new GeneralService(context);
-            adminService = new AdminService(context);
-        }
+        Admin admin = (Admin)user;
+        if (admin.WatchList is null || admin.WatchList.Count() < 1)
+            return NoContent();
 
-        [HttpGet("api/[controller]/watchlist{admin_id}")]
-        public ActionResult<List<User>> GetWatchlist(int admin_id)
-        {
-            User? user = generalService.GetUserById(admin_id);
-            
-            if (user is not Admin || user is null)
-                return BadRequest();
+        return Ok(admin.WatchList);
+    }
 
-            Admin admin = (Admin)user;
-            if (admin.WatchList is null || admin.WatchList.Count() < 1)
-                return NoContent();
+    [HttpPost("api/[controller]/add-to-watchlist{admin_id}/{user_id}")]
+    public ActionResult AddUserToWatclist(int admin_id, int user_id)
+    {   
+        User? adminUser = generalService.GetUserById(admin_id);
+        User? clientUser = generalService.GetUserById(user_id);
+        Admin admin;
+        Client client;
 
-            return Ok(admin.WatchList);
-        }
+        string error = String.Empty;
 
-        [HttpPost("api/[controller]/add-to-watchlist{admin_id}/{user_id}")]
-        public ActionResult AddUserToWatclist(int admin_id, int user_id)
-        {   
-            User? adminUser = generalService.GetUserById(admin_id);
-            User? clientUser = generalService.GetUserById(user_id);
-            Admin admin;
-            Client client;
+        if (adminUser is null || clientUser is null)
+            return BadRequest("user not found");
+        if (adminUser is not Admin)
+            error += "admin id incorrect ";
+        if (clientUser is not Client)
+            error += "client id incorrect ";
+        if (error != String.Empty)
+            return BadRequest(error);
+        admin = (Admin)adminUser;
+        client = (Client)clientUser;
 
-            string error = String.Empty;
+        admin.WatchList.Add(client);
+        
+        return Ok(client);
+    }
 
-            if (adminUser is null || clientUser is null)
-                return BadRequest("user not found");
-            if (adminUser is not Admin)
-                error += "admin id incorrect ";
-            if (clientUser is not Client)
-                error += "client id incorrect ";
-            if (error != String.Empty)
-                return BadRequest(error);
-            admin = (Admin)adminUser;
-            client = (Client)clientUser;
+    [Route("api/[controller]/create-user{first_name}/{last_name}/{is_admin}/{login}/{password}")]
+    [HttpPost]
+    public async Task<IActionResult> CreateUserFromURL(
+        string first_name,
+        string last_name,
+        bool is_admin,
+        string login,
+        string password)
+    {
+        User user;
+        if (is_admin) 
+            user = new Admin(first_name, last_name);
+        else
+            user = new Client(first_name, last_name);
 
-            admin.WatchList.Add(client);
-            
-            return Ok(client);
-        }
+        user.LoginInfo.UpdateLoginInfo(login, password);
+        return Ok(await generalService.CreateUser(user));
+    }
 
-        [Route("api/[controller]/create-user{first_name}/{last_name}/{is_admin}/{login}/{password}")]
-        [HttpPost]
-        public async Task<IActionResult> CreateUserFromURL(
-            string first_name,
-            string last_name,
-            bool is_admin,
-            string login,
-            string password)
-        {
-            User user;
-            if (is_admin) 
-                user = new Admin(first_name, last_name);
-            else
-                user = new Client(first_name, last_name);
+    [Route("api/[controller]/create-user")]
+    [HttpPost]
+    public async Task<IActionResult> CreateUserFromBody([FromBody] string userJSON)
+    {
+        User? user = JsonSerializer.Deserialize<User>(userJSON);
+        if (user is null)
+            return BadRequest();
 
-            user.LoginInfo.UpdateLoginInfo(login, password);
-            return Ok(await generalService.CreateUser(user));
-        }
+        return Ok(await generalService.CreateUser(user));
+    }
 
-        [Route("api/[controller]/create-user")]
-        [HttpPost]
-        public async Task<IActionResult> CreateUserFromBody([FromBody] string userJSON)
-        {
-            User? user = JsonSerializer.Deserialize<User>(userJSON);
-            if (user is null)
-                return BadRequest();
+    // PUT api/values/5
+    [HttpPut("{id}")]
+    public void Put(int id, [FromBody]string value)
+    {
+    }
 
-            return Ok(await generalService.CreateUser(user));
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    // DELETE api/values/5
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
     }
 }
+
 

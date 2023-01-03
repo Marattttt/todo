@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Todo.Models;
 
+//It is adviced to only use public methods
+//If additional functionality must be added, it should be kept inside public methods
 public class LoginInfo
 {
     [Key()]

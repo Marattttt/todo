@@ -5,6 +5,7 @@ using Todo.Models;
 
 namespace Todo.Services;
 
+//This service handles actions that are used by admins
 public class AdminService : IUserService
 {
     TodoContext context;

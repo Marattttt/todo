@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Todo.Models;
+
+//Profile class is to be developed for actual use
 public class Profile
 {
     [Key]
