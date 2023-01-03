@@ -10,16 +10,12 @@ namespace Todo.Controllers.Api
 {
     [Route("api/[controller]/[action]")]
     public class UsersController : ControllerBase
-    {
+    {      
         GeneralService generalService;
-        AdminService adminService;
-        ClientService clientService;
 
         public UsersController(TodoContext context)
         { 
             generalService = new GeneralService(context);
-            adminService = new AdminService(context);
-            clientService = new ClientService(context);
         }
 
         [HttpGet]
@@ -40,15 +36,21 @@ namespace Todo.Controllers.Api
             return user;
         }
 
-        [Route("api/[controller]/create-user{first_name}/{last_name}/{login}/{password}")]
+        [Route("api/[controller]/create-user{first_name}/{last_name}/{is_admin}/{login}/{password}")]
         [HttpPost]
         public async Task<IActionResult> CreateUserFromURL(
             string first_name,
             string last_name,
+            bool is_admin,
             string login,
             string password)
         {
-            User user = new User(first_name, last_name);
+            User user;
+            if (is_admin) 
+                user = new Admin(first_name, last_name);
+            else
+                user = new Client(first_name, last_name);
+
             user.LoginInfo.UpdateLoginInfo(login, password);
             return Ok(await generalService.CreateUser(user));
         }
@@ -65,15 +67,16 @@ namespace Todo.Controllers.Api
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpGet("api/[controller]/check-user{id}")]
+        public void Put(int id)
         {
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("api/[controller]/delete-user{id}")]
+        public void DeleteUser(int id)
         {
+            generalService.DeleteUser(id);
         }
     }
 }

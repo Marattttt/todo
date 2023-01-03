@@ -1,7 +1,5 @@
 using Todo.Data;
 using Todo.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Todo.Services;
 
@@ -20,12 +18,21 @@ public class GeneralService
                     where u.Id == id
                     select u;
 
-        if (user is null)
+        if (!user.ToList().Any())
             return null;
 
         return user.First();
     }
 
+    public async void DeleteUser(int id)
+    {
+        var user = from u in _context.Users
+                    where u.Id == id
+                    select u;
+
+        _context.Users.Remove((User)user);
+        await _context.SaveChangesAsync();
+    }
 
     public async Task<int> CreateUser(User user)
     {

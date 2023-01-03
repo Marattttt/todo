@@ -12,8 +12,6 @@ public class AdminService : IUserService
     {
         this.context = context;
     }
-
-
     public string GetDispayData(User user)
 	{
 		Admin admin;
