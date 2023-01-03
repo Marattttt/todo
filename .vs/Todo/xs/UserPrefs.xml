@@ -1,17 +1,16 @@
 ﻿<Properties StartupConfiguration="{74D6A0E9-A960-4244-B8C3-534D969BC499}|Todo2">
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/Api/UsersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Services/GeneralService.cs">
     <Files>
-      <File FileName="Services/TodoService.cs" Line="11" Column="36" />
-      <File FileName="Services/AdminService.cs" Line="8" Column="2" />
-      <File FileName="Services/IUserService.cs" Line="10" Column="3" />
-      <File FileName="Controllers/Api/UsersController.cs" Line="49" Column="43" />
-      <File FileName="Models/LoginInfo.cs" Line="23" Column="32" />
+      <File FileName="Services/AdminService.cs" Line="8" Column="30" />
+      <File FileName="Controllers/Api/UsersController.cs" Line="55" Column="1" />
+      <File FileName="Services/GeneralService.cs" Line="7" Column="1" />
+      <File FileName="Data/TodoContext.cs" Line="24" Column="41" />
+      <File FileName="Models/LoginInfo.cs" Line="7" Column="12" />
+      <File FileName="Models/User.cs" Line="1" Column="1" />
+      <File FileName="appsettings.json" Line="1" Column="1" />
+      <File FileName="appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="Program.cs" Line="39" Column="1" />
+      <File FileName="Models/Admin.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -26,13 +25,25 @@
                 <Node name="Api" expanded="True" />
               </Node>
               <Node name="Data" expanded="True" />
-              <Node name="Models" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Admin.cs" selected="True" />
+              </Node>
               <Node name="Services" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.Todo PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>

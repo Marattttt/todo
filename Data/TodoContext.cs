@@ -17,15 +17,21 @@ public class TodoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<LoginInfo>().ToTable("Users");
+        modelBuilder.Entity<LoginInfo>(
+            li =>
+            {
+                li.Property("_login").HasColumnName("Login");
+                li.Property("_password").HasColumnName("Password");
+                li.ToTable("LoginInfo");
+            });
 
         modelBuilder.Entity<User>(
             usr =>
             {
                 usr.ToTable("Users");
-                usr.HasOne(li => li.LoginInfo).WithOne()
-                    .HasForeignKey<LoginInfo>(li => li.Id);
-                usr.Navigation(li => li.LoginInfo).IsRequired();
+                //usr.HasOne(li => li.LoginInfo).WithOne()
+                //    .HasForeignKey<LoginInfo>(li => li.Id);
+                //usr.Navigation(li => li.LoginInfo).IsRequired();
             });
 
         modelBuilder.Entity<Profile>().ToTable("Profiles");
