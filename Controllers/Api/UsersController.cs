@@ -19,20 +19,28 @@ public class UsersController : ControllerBase
         generalService = new GeneralService(context);
     }
 
-    [HttpGet]
-    public IEnumerable<string> Get()
+    [HttpGet("api/[controller]/check-user-class{id}")]
+    public ActionResult<bool> IsUserAdmin(int id)
     {
-        return new string[] { "value1", "value2" };
+        User user;
+        try {
+            user = generalService.GetUserById(id);
+        }
+        catch (KeyNotFoundException e) { return BadRequest(); }
+
+        return generalService.IsUserAdmin(user);
     }
 
     // GET api/values/5
     [HttpGet("api/[controller]/get-user{id}")]
     public ActionResult<User> GetUserById(int id)
     {   
-        User? user = generalService.GetUserById(id);
+        User user;
 
-        if (user is null)
-            return BadRequest();
+        try {
+            user = generalService.GetUserById(id);
+        }
+        catch (KeyNotFoundException e) { return BadRequest(); }
 
         return user;
     }
