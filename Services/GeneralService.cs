@@ -49,30 +49,17 @@ public class GeneralService
         _context.Users.Add(user);
         return await _context.SaveChangesAsync();
     }
-    public async Task<int> CreateUser(string firstName, string lastName, LoginInfo loginInfo, bool isAdmin)
+    public async Task<int> CreateUser(string firstName, string lastName, LoginInfo loginInfo, Role role)
     {
-        User newUser = new User(firstName, lastName);
+        User newUser = new User(firstName, lastName, role);
         newUser.LoginInfo = loginInfo;
-
-        if (isAdmin)
-        {
-            newUser = (Admin)newUser;
-        }
-        else
-        {
-            newUser = (Client)newUser;
-        }
-        
-        {
-            Console.WriteLine(JsonSerializer.Serialize(newUser));
-        }
         _context.Users.Add(newUser);
         return await _context.SaveChangesAsync();
     }
 
     public bool IsUserAdmin (User user)
     {
-        if (user is Admin)
+        if (user.Role is Role.admin)
             return true;
         return false;
     }

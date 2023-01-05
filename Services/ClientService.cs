@@ -20,14 +20,13 @@ public class ClientService : IUserService
         {
             client = (Client)user;
         }
-        catch (InvalidCastException e)
+        catch (InvalidCastException)
         {
-            Console.WriteLine(e.Message);
-            return String.Empty;
+            return "Invalid user";
         }
 
         if (client.Profile is null)
-            return String.Empty;
+            return "Empty profile";
 
         return JsonSerializer.Serialize(client.Profile);
     }

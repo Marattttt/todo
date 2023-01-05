@@ -62,48 +62,6 @@ public class AdminController : ControllerBase
         
         return Ok(client);
     }
-
-    [Route("api/[controller]/create-user{first_name}/{last_name}/{is_admin}/{login}/{password}")]
-    [HttpPost]
-    public async Task<IActionResult> CreateUserFromURL(
-        string first_name,
-        string last_name,
-        bool is_admin,
-        string login,
-        string password)
-    {
-        User user;
-        if (is_admin) 
-            user = new Admin(first_name, last_name);
-        else
-            user = new Client(first_name, last_name);
-
-        user.LoginInfo.UpdateLoginInfo(login, password);
-        return Ok(await generalService.CreateUser(user));
-    }
-
-    [Route("api/[controller]/create-user")]
-    [HttpPost]
-    public async Task<IActionResult> CreateUserFromBody([FromBody] string userJSON)
-    {
-        User? user = JsonSerializer.Deserialize<User>(userJSON);
-        if (user is null)
-            return BadRequest();
-
-        return Ok(await generalService.CreateUser(user));
-    }
-
-    // PUT api/values/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody]string value)
-    {
-    }
-
-    // DELETE api/values/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-    }
 }
 
 

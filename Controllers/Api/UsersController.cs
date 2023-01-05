@@ -51,16 +51,11 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> CreateUserFromURL(
         string first_name,
         string last_name,
-        bool is_admin,
+        Role role,
         string login,
         string password)
     {
-        User user;
-        if (is_admin) 
-            user = new Admin(first_name, last_name);
-        else
-            user = new Client(first_name, last_name);
-
+        User user = new Models.User (first_name, last_name, role);
         user.LoginInfo.UpdateLoginInfo(login, password);
         return Ok(await generalService.CreateUser(user));
     }

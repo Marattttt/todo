@@ -10,11 +10,14 @@ public class User
     public LoginInfo LoginInfo { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public Role Role{ get; set; }
+    public Profile? Profile { get; set; }
 
-    public User(string firstName, string lastName)
+    public User(string firstName, string lastName, Role role)
     {
         FirstName = firstName;
         LastName = lastName;
+        Role = role;
         LoginInfo = new LoginInfo();
     }
 }
