@@ -7,17 +7,19 @@ public class User
 {
     [Key()]
     public int Id { get; set; }
-    public LoginInfo LoginInfo { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public Role Role{ get; set; }
-    public Profile? Profile { get; set; }
+    public LoginInfo? LoginInfo { get; set; }
 
-    public User(string firstName, string lastName, Role role)
+    public User ()
+    {
+        FirstName = String.Empty;
+        LastName = String.Empty;
+    }
+    public User(string firstName, string lastName)
     {
         FirstName = firstName;
         LastName = lastName;
-        Role = role;
         LoginInfo = new LoginInfo();
     }
 }

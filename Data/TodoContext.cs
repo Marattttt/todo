@@ -11,22 +11,31 @@ public class TodoContext : DbContext
         Npgsql.NpgsqlConnection.GlobalTypeMapper.MapEnum<Role>();
     }
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<LoginInfo> LoginInfos { get; set; }
+    public DbSet<Client> Clients { get; set; }
+    public DbSet<Admin> Admins { get; set; }
+
     public DbSet<Profile> Profiles { get; set; }
-    public DbSet<TodoItem> TodoItems { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<LoginInfo>(
             li =>
             {
-                li.Property("_login").HasColumnName("Login");
-                li.Property("_password").HasColumnName("Password");
-                li.ToTable("LoginInfo");
+                li.Property("_login")
+                    .HasColumnName("login")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+                li.Property("_password")
+                    .HasColumnName("lassword")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+                li.ToTable("login_info");
             });
-        modelBuilder.HasPostgresEnum<Role>();
-        modelBuilder.Entity<User>().ToTable("Users");
-        modelBuilder.Entity<Profile>().ToTable("Profiles");
-        modelBuilder.Entity<TodoItem>().ToTable("TodoItems");
+        modelBuilder.Entity<User>()
+            .ToTable("users")
+            .HasDiscriminator<string>("user_type")
+            .HasValue<Admin>("admin")
+            .HasValue<Client>("client");       
+        modelBuilder.Entity<TodoItem>().ToTable("todo_items");
+        modelBuilder.Entity<Profile>().ToTable("profiles");
     }
 }

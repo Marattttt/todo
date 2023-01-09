@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Todo.Data;
@@ -11,9 +12,11 @@ using Todo.Data;
 namespace Todo.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    partial class TodoContextModelSnapshot : ModelSnapshot
+    [Migration("20230105113222_ImprovedUserLevels")]
+    partial class ImprovedUserLevels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +65,7 @@ namespace Todo.Migrations
 
                     b.HasKey("ProfileId");
 
-                    b.ToTable("profiles", (string)null);
+                    b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("Todo.Models.TodoItem", b =>
@@ -124,7 +127,7 @@ namespace Todo.Migrations
 
                     b.HasIndex("LoginInfoId");
 
-                    b.ToTable("users", (string)null);
+                    b.ToTable("User");
 
                     b.HasDiscriminator<string>("user_type").HasValue("User");
 

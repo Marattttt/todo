@@ -8,14 +8,19 @@ public class LoginInfo
 {
     [Key()]
     public int Id { get; set; }
-    private string _login { get; set; } 
-    private string _password { get; set; }
+    private string _login { get; set; } = "login";
+    private string _password { get; set; } = "password";
 
     public LoginInfo()
     {
     }
+    public LoginInfo(string login, string password)
+    {
+        _login = "login";
+        _password = "password";
+    }
 
-    public bool VerifyLogin (string login, string password)
+    public bool Verify (string login, string password)
     {
         if (login == _login && password == _password)
             return true;
@@ -23,7 +28,7 @@ public class LoginInfo
             return false;
     }
     
-    public void UpdateLoginInfo (string newLogin, string newPassword)
+    public void Update (string newLogin, string newPassword)
     {
         _login = newLogin;
         _password = newPassword;

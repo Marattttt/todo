@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Todo.Data;
 using Todo.Models;
 using System.Text.Json;
@@ -14,53 +15,37 @@ public class GeneralService
         _context = context;
     }
 
-    //method returns a user if one is found, or otherwise, throws a 
-    //KeyNotFound exception
-    //This method or its implementations should always be wrapped in a try/catch
-    public User GetUserById(int id)
+    public User? GetUser(int id)
     {
-        var user = from u in _context.Users
-                    where u.Id == id
-                    select u;
-
-        if (!user.ToList().Any())
-            throw new KeyNotFoundException();
-
-        return user.First();
+        User? user =  _context.Clients.Find(id);
+        return user;
     }
 
-    //Method does not need to chek whether such an id exists, and the user is not 
-    //an admin, it will delete the user
+    //Method does not need to chek whether such an id exists, and 
+    //if the user is not an admin, it will delete the user
     public async void DeleteUser(int id)
     {
-        var user = from u in _context.Users
-                    where u.Id == id
-                    select u;
-        if (user is Admin)
+        User? user = GetUser(id);
+        if (user is Admin || user is null)
             return; 
 
-        _context.Users.Remove((User)user);
+        _context.Clients.Remove((Client)user);
         await _context.SaveChangesAsync();
     }
-
-    //Method overload made for a better future implementation
-    public async Task<int> CreateUser(User user)
+    //Creates a user
+    public async Task<int> CreateUser(User user, Role role)
     {
-        _context.Users.Add(user);
+        if (role == Role.admin)
+        {
+            Admin admin = new Admin(user);
+            _context.Admins.Add(admin);
+        }
+        else if (role == Role.client)
+        {
+            Client? client = new Client(user);
+            _context.Clients.Add(client);
+        }
+             
         return await _context.SaveChangesAsync();
-    }
-    public async Task<int> CreateUser(string firstName, string lastName, LoginInfo loginInfo, Role role)
-    {
-        User newUser = new User(firstName, lastName, role);
-        newUser.LoginInfo = loginInfo;
-        _context.Users.Add(newUser);
-        return await _context.SaveChangesAsync();
-    }
-
-    public bool IsUserAdmin (User user)
-    {
-        if (user.Role is Role.admin)
-            return true;
-        return false;
     }
 }

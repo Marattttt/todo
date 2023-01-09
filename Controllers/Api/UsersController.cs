@@ -10,7 +10,7 @@ namespace Todo.Controllers.Api;
 
 //This controller handles create and read methods related to users in general
 
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]/")]
 public class UsersController : ControllerBase
 {      
     GeneralService generalService;
@@ -19,59 +19,49 @@ public class UsersController : ControllerBase
         generalService = new GeneralService(context);
     }
 
-    [HttpGet("api/[controller]/check-user-class{id}")]
+    [HttpGet("check-user-class{id}")]
     public ActionResult<bool> IsUserAdmin(int id)
     {
-        User user;
-        try {
-            user = generalService.GetUserById(id);
-        }
-        catch (KeyNotFoundException e) { return BadRequest(); }
+        User user = generalService.GetUser(id);
 
-        return generalService.IsUserAdmin(user);
+        if (user is null)
+            return BadRequest(); 
+    
+        return (user is Admin);
     }
 
     // GET api/values/5
     [HttpGet("api/[controller]/get-user{id}")]
     public ActionResult<User> GetUserById(int id)
     {   
-        User user;
-
-        try {
-            user = generalService.GetUserById(id);
-        }
-        catch (KeyNotFoundException e) { return BadRequest(); }
-
-        return user;
-    }
-
-    //Method created for a better realization in future
-    [Route("api/[controller]/create-user{first_name}/{last_name}/{is_admin}/{login}/{password}")]
-    [HttpPost]
-    public async Task<IActionResult> CreateUserFromURL(
-        string first_name,
-        string last_name,
-        Role role,
-        string login,
-        string password)
-    {
-        User user = new Models.User (first_name, last_name, role);
-        user.LoginInfo.UpdateLoginInfo(login, password);
-        return Ok(await generalService.CreateUser(user));
-    }
-
-    [Route("api/[controller]/create-user")]
-    [HttpPost]
-    public async Task<IActionResult> CreateUserFromBody([FromBody] string userJSON)
-    {
-        User? user = JsonSerializer.Deserialize<User>(userJSON);
+        User? user = generalService.GetUser(id);
+        
         if (user is null)
             return BadRequest();
 
-        return Ok(await generalService.CreateUser(user));
+        return user;
+    }
+    //Method created for a better realization in future
+    [HttpPost("create-user")]
+    public async Task<IActionResult> CreateUser(
+            User user,
+            string login,
+            string password,
+            Role role)
+    {     
+        if (!ModelState.IsValid)
+            return BadRequest("Invalid model");
+        if (user.Id != 0)
+            return BadRequest("id must be 0");
+        
+        user.LoginInfo = new LoginInfo(login, password);
+
+        return Ok(await generalService.CreateUser(
+                user,
+                role));
     }
     
-    [HttpDelete("api/[controller]/delete-user{id}")]
+    [HttpDelete("delete-user{id}")]
     public void DeleteUser(int id)
     {
         generalService.DeleteUser(id);

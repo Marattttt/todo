@@ -20,9 +20,8 @@ public class AdminService : IUserService
 		{
 			admin = (Admin)user;
 		}
-		catch(InvalidCastException e)
+		catch(InvalidCastException)
 		{
-			Console.WriteLine(e.Message);
 			return String.Empty;
 		}
 
@@ -30,6 +29,21 @@ public class AdminService : IUserService
 			return String.Empty;
 
         return JsonSerializer.Serialize(admin.WatchList);
+	}
+
+	public bool AddToWatchList(ref Admin admin, Client client)
+	{
+		if (admin.WatchList is null)
+		{
+			admin.WatchList = new List<Client> { client };
+			return true;
+		}
+
+		if (admin.WatchList.Find(c => c.Id == client.Id) is null)
+			return false;
+
+		admin.WatchList.Add(client);
+		return true;
 	}
 }
 
