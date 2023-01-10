@@ -57,9 +57,9 @@ public class AdminController : ControllerBase
             error += "client id incorrect ";
         if (error != String.Empty)
             return BadRequest(error);
+
         admin = (Admin)adminUser;
         client = (Client)clientUser;
-
         admin.WatchList.Add(client);
         
         return Ok(client);

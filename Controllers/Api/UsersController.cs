@@ -22,7 +22,7 @@ public class UsersController : ControllerBase
     [HttpGet("check-user-class{id}")]
     public ActionResult<bool> IsUserAdmin(int id)
     {
-        User user = generalService.GetUser(id);
+        User? user = generalService.GetUser(id);
 
         if (user is null)
             return BadRequest(); 
@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
     }
 
     // GET api/values/5
-    [HttpGet("api/[controller]/get-user{id}")]
+    [HttpGet("api/[controller]/get-user")]
     public ActionResult<User> GetUserById(int id)
     {   
         User? user = generalService.GetUser(id);
@@ -61,9 +61,9 @@ public class UsersController : ControllerBase
                 role));
     }
     
-    [HttpDelete("delete-user{id}")]
-    public void DeleteUser(int id)
+    [HttpDelete("delete-user")]
+    public async Task<IActionResult> DeleteUser(int id)
     {
-        generalService.DeleteUser(id);
+        return Ok(await generalService.DeleteUser(id));
     }
 }
